@@ -23,11 +23,8 @@ function setIntervalN(fn, interval, cnt) {
 
 setTimeout(function() {
     'use strict';
-
-    for (let e of document.getElementsByClassName('x-grid3-scroller')) {
-        e.style.overflow = 'hidden'
-    }
-
+    
+    // Long press as double click
     document.body.setAttribute('data-long-press-delay', '200')
     document.addEventListener('long-press', function (e) {
         console.log(e);
@@ -39,8 +36,14 @@ setTimeout(function() {
             })
         )
     });
-    setTimeout(() => { // Load delay
+    
+    setTimeout(() => { // Page load delay
         setIntervalN(() => {
+            // Hide useless inner scroll bar
+            for (let e of document.getElementsByClassName('x-grid3-scroller')) {
+                e.style.overflow = 'hidden'
+            }
+            
             // Remove "Datum za resavanje" from everywhere
             for (const e of document.querySelectorAll(".x-grid3-td-DateTimeToSolved > div")) {
                 e.parentElement.style.display = 'none'
