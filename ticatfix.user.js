@@ -23,7 +23,7 @@ function setIntervalN(fn, interval, cnt) {
 
 setTimeout(function() {
     'use strict';
-    
+
     // Long press as double click
     document.body.setAttribute('data-long-press-delay', '200')
     document.addEventListener('long-press', function (e) {
@@ -36,28 +36,33 @@ setTimeout(function() {
             })
         )
     });
-    
-    setTimeout(() => { // Page load delay
-        setIntervalN(() => {
-            // Hide useless inner scroll bar
-            for (let e of document.getElementsByClassName('x-grid3-scroller')) {
-                e.style.overflow = 'hidden'
-            }
-            
-            // Remove "Datum za resavanje" from everywhere
-            for (const e of document.querySelectorAll(".x-grid3-td-DateTimeToSolved > div")) {
-                e.parentElement.style.display = 'none'
-                e.style.display = 'none'
-            }
 
-            // Make "Br" column wider
-            const BR_COL_WIDTH = 60; // px
-            for (const e of document.querySelectorAll(".x-grid3-hd-Broj, .x-grid3-td-Broj")) {
-                e.style.width = `${BR_COL_WIDTH}px`;
-            }
-            for (const e of document.querySelectorAll(".x-grid3-col-Broj")) {
-                e.style.width = `${BR_COL_WIDTH - 6}px`;
-            }
-        }, 1000, 10);
+    setInterval(() => {
+        // Hide useless inner scroll bar
+        for (let e of document.getElementsByClassName('x-grid3-scroller')) {
+            e.style.overflow = 'hidden'
+        }
+
+        // Remove "Datum za resavanje" from everywhere
+        for (const e of document.querySelectorAll(".x-grid3-td-DateTimeToSolved > div")) {
+            e.parentElement.style.display = 'none'
+            e.style.display = 'none'
+        }
+
+        // Make "Br" column wider
+        const BR_COL_WIDTH = 60; // px
+        for (const e of document.querySelectorAll(".x-grid3-hd-Broj, .x-grid3-td-Broj")) {
+            e.style.width = `${BR_COL_WIDTH}px`;
+        }
+        for (const e of document.querySelectorAll(".x-grid3-col-Broj")) {
+            e.style.width = `${BR_COL_WIDTH - 6}px`;
+        }
     }, 2500);
+
+    setInterval(() => {
+        if (document.getElementById('ext-comp-1030')) { // Error window
+            console.log("Refreshing page due to error window!")
+            location.reload()
+        }
+    }, 1000);
 }, 1000)
